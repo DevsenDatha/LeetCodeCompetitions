@@ -1,0 +1,25 @@
+Question : 
+Given an array of integers nums, you start with an initial positive value startValue.
+In each iteration, you calculate the step by step sum of startValue plus elements in nums (from left to right).
+Return the minimum positive value of startValue such that the step by step sum is never less than 1.
+
+
+Solution : (JAVA)
+class Solution {
+    public int minStartValue(int[] nums) {
+        if (nums == null) {
+            throw new IllegalArgumentException("Input array is null");
+        }
+
+        int minVal = 0;
+        int prefixSum = 0;
+
+        for (int n : nums) {
+            prefixSum += n;
+            // Find the minimum prefix sum which is <= zero, as it will help us to find the lowest negative value.
+            minVal = Math.min(minVal, prefixSum);
+        }
+
+        return 1 - minVal;
+    }
+}
